@@ -1,4 +1,4 @@
-# sleepoutside
+# CineScope - Project
 
 ## Description
 
