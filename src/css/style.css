@@ -38,7 +38,7 @@ button {
   padding: 0.5em 2em;
   background-color: var(--secondary-color);
   color: white;
-  margin: auto;
+  border-radius: 25px;
   display: block;
   border: 0;
   font-size: var(--large-font);
@@ -54,4 +54,66 @@ button {
 .movie-list a {
   text-decoration: none;
   color: var(--dark-grey);
+}
+
+
+/* Modal Styles  */
+.trailer-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+  align-items: center;
+  justify-content: center;
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5em 1em;
+}
+.modal-header h3{
+  margin: .8em 0;
+  color: #ffff;
+}
+
+.modal-header span{
+  color: #ffffff7e;
+}
+.close-modal {
+  margin: 0;
+  padding: 0 .2em;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+.close-modal:hover {
+  background-color: rgba(221, 219, 219, 0.171);
+  border-radius: 5px;
+}
+/* Modal Content */
+.modal-content {
+  background-color: #000;
+  margin: auto;
+  width: 70%;
+}
+
+
+/* End Modal Styles */
+
+
+
+/* Media Queries */
+@media screen and (min-width: 1600px) {
+  .modal-content {
+    background-color: #000;
+    margin: auto;
+    width: 75%;
+  }
+  #trailerIframe{
+    height: 800px;
+  }
 }
