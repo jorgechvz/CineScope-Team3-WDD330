@@ -260,3 +260,17 @@ export async function getMovieCredits(movie_id) {
     .catch((err) => console.error(err));
 }
 
+export async function getMovieTrailer(movie_id) {
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${baseToken}`,
+    },
+  };
+
+  return await fetch(`${baseURL}movie/${movie_id}/videos?language=en-US`, options)
+    .then((response) => response.json())
+    .then((response) => response.results)
+    .catch((err) => console.error(err));
+}
