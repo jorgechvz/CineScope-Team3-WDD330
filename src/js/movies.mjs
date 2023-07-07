@@ -1,8 +1,7 @@
-import { getMovieByNowPlaying } from "./externalServices.mjs";
-
+import { getMovieByNowPlaying, getMovies } from "./externalServices.mjs";
 
 export function movies() {
-  getMovieByNowPlaying(1)
+  getMovies(1)
     .then((products) => {
       console.log(products);
       displayMovies(products);
@@ -16,12 +15,11 @@ function displayMovies(movies) {
     return `
     <div>
     <a href="/movie_detail/index.html?movie=${movie.id}">
-        <img src="https://www.themoviedb.org/t/p/w220_and_h330_face/${movie. poster_path}">
+        <img src="https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}">
         <p>${movie.title}</p>
     </a>
     </div>
         `;
-    });
-    container.insertAdjacentHTML("afterbegin", getArray.join(''));;
+  });
+  container.insertAdjacentHTML("afterbegin", getArray.join(""));
 }
-

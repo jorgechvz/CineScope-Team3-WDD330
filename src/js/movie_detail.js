@@ -1,11 +1,16 @@
-import { getTrailer, movieDetail } from "./movieDetail.mjs";
+import { getTrailer, movieCredits, movieDetail, movieRecommendations } from "./movieDetail.mjs";
 import { getParam } from "./utils.mjs";
 
-
-
 const movieId = getParam("movie");
-const selector = ".movie-detail"
+const selectorHoverDetail = ".movie-detail";
+const selectorMainCast = ".movie-cast";
+const selectorRecommendation = ".recommendation-movies"
 
-movieDetail(movieId, selector)
+
+movieDetail(movieId, selectorHoverDetail)
 
 getTrailer(movieId)
+
+movieCredits(movieId, selectorMainCast)
+
+movieRecommendations(movieId, selectorRecommendation)

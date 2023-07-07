@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Movie Detail | Movies</title>
+    <title>Login | Movies</title>
     <link rel="stylesheet" href="/css/style.css" />
     <script type="module" src="../js/login.js"></script>
   </head>
-  <body>
+  <body id="body-login">
     <header class="divider">
       <div class="logo">
         <svg
@@ -170,19 +170,21 @@
         </ul>
       </nav>
     </header>
-    <main class="main-containeir main-detail">
-        <form action="" method="post">
-            <div>
+    <main class="main-containeir main-login">
+        <form id="form-login" method="post">
+            <p class="message_failure"></p>
+            <div class="camp-form-login">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username">
             </div>
-            <div>
+            <div class="camp-form-login">
                 <label for="password">Password</label>
                 <input type="password" name="password" id="password">
             </div>
-            <a class="sign-up-btn" href="">Sign up</a>
             <input type="submit" name="submitLogin" id="submitLogin" value="Login">
+            <a class="sign-up-btn" href="">Sign up</a>
         </form>
+        <p class="accountInformation"></p>
     </main>
     <footer>&copy;NOT a real business</footer>
   </body>
