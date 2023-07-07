@@ -10,7 +10,7 @@ export async function getMovies(page) {
       Authorization: `Bearer ${baseToken}`,
     },
   };
-
+  
   return await fetch(
     `${baseURL}movie/popular?language=en-US&page=${page}`,
     options
@@ -72,7 +72,7 @@ export async function getMovieByUpcoming() {
 
 /* Account Information */
 
-export async function getDetailsAccount() {
+export async function getDetailsAccount(sessionId) {
   const options = {
     method: "GET",
     headers: {
@@ -80,13 +80,12 @@ export async function getDetailsAccount() {
       Authorization: `Bearer ${baseToken}`,
     },
   };
-
-  return await fetch(`${baseURL}account/account_id`, options)
+  return await fetch(`${baseURL}account/account_id?session_id=${sessionId}`, options)
     .then((response) => response.json())
     .catch((err) => console.error(err));
 }
 
-export async function getFavoriteMovie(page = 1) {
+export async function getFavoriteMovie(page = 1, sessionId) {
     const options = {
       method: "GET",
       headers: {
@@ -96,7 +95,7 @@ export async function getFavoriteMovie(page = 1) {
     };
   
     return await fetch(
-      `${baseURL}account/account_id/favorite/movies?language=en-US&page=${page}&sort_by=created_at.asc`,
+      `${baseURL}account/account_id/favorite/movies?language=en-US&page=${page}&sort_by=created_at.asc&?session_id=${sessionId}`,
       options
     )
       .then((response) => response.json())
@@ -104,7 +103,7 @@ export async function getFavoriteMovie(page = 1) {
       .catch((err) => console.error(err));
   }
 
-export async function getWatchlistMovie(page = 1) {
+export async function getWatchlistMovie(page = 1, sessionId) {
   const options = {
     method: "GET",
     headers: {
@@ -114,7 +113,7 @@ export async function getWatchlistMovie(page = 1) {
   };
 
   return await fetch(
-    `${baseURL}account/account_id/watchlist/movies?language=en-US&page=${page}&sort_by=created_at.asc`,
+    `${baseURL}account/account_id/watchlist/movies?language=en-US&page=${page}&sort_by=created_at.asc&?session_id=${sessionId}`,
     options
   )
     .then((response) => response.json())
@@ -122,7 +121,7 @@ export async function getWatchlistMovie(page = 1) {
     .catch((err) => console.error(err));
 }
 
-export async function addFavoriteMovie(movie_id) {
+export async function addFavoriteMovie(movie_id, sessionId) {
   const options = {
     method: "POST",
     headers: {
@@ -137,12 +136,12 @@ export async function addFavoriteMovie(movie_id) {
     }),
   };
 
-  return await fetch(`${baseURL}account/account_id/favorite`, options)
+  return await fetch(`${baseURL}account/account_id/favorite??session_id=${sessionId}`, options)
     .then((response) => response.json())
     .catch((err) => console.error(err));
 }
 
-export async function addWatchlistMovie(movie_id) {
+export async function addWatchlistMovie(movie_id, sessionId) {
   const options = {
     method: "POST",
     headers: {
@@ -157,7 +156,7 @@ export async function addWatchlistMovie(movie_id) {
     }),
   };
 
-  return await fetch(`${baseURL}account/account_id/watchlist`, options)
+  return await fetch(`${baseURL}account/account_id/watchlist??session_id=${sessionId}`, options)
     .then((response) => response.json())
     .catch((err) => console.error(err));
 }
@@ -270,6 +269,21 @@ export async function getMovieTrailer(movie_id) {
   };
 
   return await fetch(`${baseURL}movie/${movie_id}/videos?language=en-US`, options)
+    .then((response) => response.json())
+    .then((response) => response.results)
+    .catch((err) => console.error(err));
+}
+
+export async function getRecommendations(movie_id) {
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${baseToken}`,
+    },
+  };
+
+  return await fetch(`${baseURL}movie/${movie_id}/recommendations?language=en-US&page=1`, options)
     .then((response) => response.json())
     .then((response) => response.results)
     .catch((err) => console.error(err));

@@ -22,7 +22,7 @@ body {
   font-size: var(--font-base);
   color: var(--dark-grey);
 }
-main{
+main {
   margin: 1em;
 }
 img {
@@ -56,7 +56,6 @@ button {
   color: var(--dark-grey);
 }
 
-
 /* Modal Styles  */
 .trailer-modal {
   display: none; /* Hidden by default */
@@ -74,19 +73,19 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: .5em 1em;
+  padding: 0.5em 1em;
 }
-.modal-header h3{
-  margin: .8em 0;
+.modal-header h3 {
+  margin: 0.8em 0;
   color: #ffff;
 }
 
-.modal-header span{
+.modal-header span {
   color: #ffffff7e;
 }
 .close-modal {
   margin: 0;
-  padding: 0 .2em;
+  padding: 0 0.2em;
   font-size: 1.5em;
   cursor: pointer;
 }
@@ -101,10 +100,203 @@ button {
   width: 70%;
 }
 
-
 /* End Modal Styles */
 
+/* Login Page */
 
+#body-login {
+  background-image: url("https://www.themoviedb.org/t/p/w1920_and_h1080_multi_faces_filter(duotone,00192f,00baff)/VlHt27nCqOuTnuX6bku8QZapzO.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.camp-form-login {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5em;
+  margin-bottom: 0.5em;
+}
+.main-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#submitLogin {
+  padding: 0.5em 1em;
+  border-radius: 10px;
+  border: none;
+  background-color: #303030;
+  color: #ffff;
+  cursor: pointer;
+}
+#form-login {
+  padding: 5em;
+  background-color: #0e0d0d41;
+}
+#form-login label {
+  color: #ffff;
+}
+#form-login input {
+  padding: 0.5em;
+  border: none;
+}
+
+/* End Login Page Styles */
+
+/* Movie Details Styles Page */
+.main-detail {
+  margin: 0;
+}
+.list-genres{
+  display: flex;
+  list-style: none;
+}
+.cover-detail {
+  background-image: linear-gradient(
+    to right,
+    rgb(31.5, 31.5, 73.5) calc((50vw - 170px) - 340px),
+    rgba(95, 55, 128, 0.84) 50%,
+    rgba(77, 23, 23, 0.84) 100%
+  );
+}
+.container-movie-cover {
+  margin: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.container-detail {
+  display: flex;
+  justify-content: center;
+  padding: 2em 2.5em;
+  gap: 1em;
+  max-width: 1440px;
+  margin: 2em auto;
+}
+
+.container-movie-cover img {
+  border-radius: 10px;
+}
+.container-movie-cover div {
+  color: #ffff;
+}
+/* Content Container  */
+
+.div-title {
+  margin: .2em 0;
+}
+
+
+.content-container {
+  max-width: 1440px;
+  margin: auto;
+  padding: 2em;
+  display: grid;
+  grid-template-columns: 80% 20%;
+}
+
+.information-movie {
+  grid-column: 2/3;
+  grid-row: 1/3;
+}
+/* Main Cast Style */
+
+.movie-cast-container,
+.recommendation-movies-container {
+  max-width: 1000px;
+}
+.movie-cast,
+.recommendation-movies {
+  margin: 0;
+  display: grid;
+  padding: 1em 0;
+  gap: 1em;
+  grid-auto-flow: column;
+  grid-auto-columns: 150px;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  list-style: none;
+}
+.movie-cast::-webkit-scrollbar,
+.recommendation-movies::-webkit-scrollbar {
+  width: 10px;
+  height: 8px;
+  background-color: #f5f5f5;
+}
+.movie-cast::-webkit-scrollbar-thumb,
+.recommendation-movies::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #afafaf;
+}
+.movie-cast li,
+.recommendation-movies li {
+  margin: 5px;
+  border-radius: 10px;
+  border: solid 1px #d6d5d5;
+  height: 100%;
+}
+.movie-cast li img {
+  border-radius: 10px 10px 0 0;
+}
+.movie-cast li p {
+  margin: 0;
+  padding: 0 10px;
+}
+.cast-name {
+  font-size: 0.9em;
+}
+.movie-cast li p:last-child {
+  font-size: 0.8em;
+}
+.see-more-cast {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.see-more-cast a {
+  text-decoration: none;
+  color: #000;
+}
+.arrow {
+  font-weight: bold;
+}
+/* End Main Cast Style */
+
+/* Recommendation Styles */
+.recommendation-movies {
+  grid-auto-columns: 262px;
+  gap: 0.7em;
+  padding: 1em 0 .5em;
+}
+.recommendation-movies li div {
+  display: flex;
+  justify-content: space-between;
+  margin-top: .3em;
+  margin-right: .2em;
+}
+.recommendation-movies li {
+  border: none;
+  height: auto;
+}
+.recommendation-movies li a img {
+  border-radius: 10px;
+}
+.recommendation-movies li div a {
+  text-decoration: none;
+  color: #000;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  font-size: .8em;
+}
+.recommendation-movies li div p{
+  margin: 0;
+  font-size: .8em;
+}
+
+/* End Recommendation Styles */
+
+/* End Movie Details Styles Page */
 
 /* Media Queries */
 @media screen and (min-width: 1600px) {
@@ -113,7 +305,7 @@ button {
     margin: auto;
     width: 75%;
   }
-  #trailerIframe{
+  #trailerIframe {
     height: 800px;
   }
 }
