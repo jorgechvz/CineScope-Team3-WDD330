@@ -99,7 +99,14 @@ button {
   margin: auto;
   width: 70%;
 }
-
+#btn-openModal-trailer{
+  cursor: pointer;
+  font-weight: bold;
+}
+.play-icon{
+  padding-right: .2em;
+  font-size: 1.2em;
+}
 /* End Modal Styles */
 
 /* Login Page */
@@ -147,9 +154,16 @@ button {
 .main-detail {
   margin: 0;
 }
-.list-genres{
-  display: flex;
-  list-style: none;
+.movie-certification{
+  border-radius: 5px;
+  border: solid 1px #acacac;
+  padding: .1em .2em;
+  text-align: center;
+  color: #acacac;
+}
+.movie-genres a{
+  text-decoration: none;
+  color: #fff;
 }
 .cover-detail {
   background-image: linear-gradient(
@@ -166,18 +180,49 @@ button {
 }
 .container-detail {
   display: flex;
-  justify-content: center;
   padding: 2em 2.5em;
   gap: 1em;
   max-width: 1440px;
   margin: 2em auto;
+  align-items: center;
 }
 
 .container-movie-cover img {
   border-radius: 10px;
 }
 .container-movie-cover div {
-  color: #ffff;
+  color: #ffffff;
+}
+.container-actions-movie{
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+.container-actions-movie li{
+  list-style: none;
+}
+.average-movie{
+  display: flex;
+  align-items: center;
+  gap: .5em;
+}
+
+#myCanvas {
+  background-color: #00021bcb;
+  border-radius: 50%;
+}
+.actions{
+  background-color: #000318;
+  display: flex;
+  align-items: center;
+  border-radius: 50%;
+  padding: .7em;
+  cursor: pointer;
+}
+.icon-actions{
+  width: 20px;
 }
 /* Content Container  */
 

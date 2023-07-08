@@ -1,3 +1,4 @@
+import { eventAddFavorite, eventAddWatchlist } from "./actions.mjs";
 import {
   getMovieById,
   getMovieCredits,
@@ -5,7 +6,8 @@ import {
   getRecommendations,
 } from "./externalServices.mjs";
 
-/* Movie Detail for Hover */
+/* --------------------Movie Detail for Hover -------------------------------*/
+
 export function movieDetail(movieId, selector) {
   getMovieById(movieId)
     .then((movie) => {
@@ -18,23 +20,31 @@ export function movieDetail(movieId, selector) {
 
 function displayMovieDetail(movie, selector) {
   const container = document.querySelector(selector);
-  const getGenres = movie.genres.map((item) => {
-    return `
-      <li>${item.name}</li>
-      `;
-  });
   container.innerHTML = `
     <div class="container-movie-cover">
       <div class="cover-detail">
         <div class="container-detail">
-          <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2${
-            movie.poster_path
-          }" alt="image for ${movie.title}" />
+          <img src="https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}" alt="image for ${movie.title}" />
           <div>
-            <h2>${movie.title} Detail</h2>
-            <button id="btn-openModal-trailer">Watch Trailer</button>
+            <h2>${movie.title} <span>(${new Date(movie.release_date).getFullYear()})</span></h2>
+            <p>
+              ${getReleaseInformation(movie)}
+              ${getMovieDuration(movie.runtime)}
+            </p>
+            <ul class="container-actions-movie">
+              <li class="average-movie">
+                <canvas id="myCanvas" width="60" height="60"></canvas>
+                <p>User<br>Score</p>
+              </li>
+              <li class="actions add-list" data-id=${movie.id}><img class="icon-actions list-icon" src="../images/list-icon.png" /></li>
+              <li class="actions add-favorite" data-id="${movie.id}"><img class="icon-actions heart-icon" src="../images/heart-icon.png" /></li>
+              <li class="actions add-watchlist" data-id=${movie.id}><img class="icon-actions watchlist-icon" src="../images/watchlist-icon.png" /></li>
+              <li class="actions add-rating" data-id=${movie.id}><img class="icon-actions star-icon" src="../images/star-icon.png" /></li>
+              <li id="btn-openModal-trailer"><span class="play-icon">&#9654;</span> Watch Trailer</li>
+            </ul>
+            <p>${movie.tagline}</p>
+            <h3>Overview</h3>
             <p>${movie.overview}</p>
-            <ul class="list-genres">${getGenres.join(", ")}</ul>
           </div>
         </div>
       </div>
@@ -42,15 +52,94 @@ function displayMovieDetail(movie, selector) {
     `;
   const getContainerMovie = document.querySelector(".container-movie-cover");
   getContainerMovie.style.backgroundImage = `url("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/${movie.backdrop_path}")`;
+  buildCanvasUserScore(movie.vote_average);
+  eventAddFavorite(".add-favorite",".heart-icon");
+  eventAddWatchlist(".add-watchlist",".watchlist-icon");
 }
 
+/* Function to get movie's release information*/
+function getReleaseInformation(movie){
+  const getGenres = movie.genres.map((item) => {
+    return `
+      <a href="">${item.name}</a>
+      `;
+  });
+  const getReleaseInfo = movie.release_dates.results.find((release) => {
+    return release.iso_3166_1 == movie.production_countries[0].iso_3166_1;
+  });
+  const getReleaseData = new Date(getReleaseInfo.release_dates[0].release_date);
+  const optionsDate = {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    timeZone: "UTC",
+  };
+  const formattedDateRelease = getReleaseData.toLocaleDateString(
+    "en-US",
+    optionsDate
+  );
+  return `
+    <span class="movie-certification">${getReleaseInfo.release_dates[0].certification}</span> 
+    <span class="movie-release">${formattedDateRelease} (${getReleaseInfo.iso_3166_1})</span> 
+    &#x2022; 
+    <span class="movie-genres">${getGenres.join(",")}</span> 
+    &#x2022; 
+  `
+}
+
+/* Function to get and convert movie duration */
+function getMovieDuration(duration) {
+  const hourMovie = Math.floor(duration / 60);
+  const minuteMovie = duration % 60;
+  const formattedDuration = `${hourMovie}h ${minuteMovie}m`;
+  return `
+    <span class="movie-duration">${formattedDuration}</span>
+  `
+}
+
+/* Get Canvas for User Score */
+function buildCanvasUserScore(movie) {
+  const getPercet = (movie * 10).toFixed(0)
+  const canvas = document.getElementById('myCanvas');
+  const ctx = canvas.getContext('2d');
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
+  const radius = 25;
+  const lineWidth = 3;
+  const fillColor = '#e0e0e0';
+  const strokeColor = '#ece907';
+  const percent = getPercet;
+  const maxValue = 100;
+  const angle = (percent / maxValue) * Math.PI * 2;
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+  ctx.lineWidth = lineWidth;
+  ctx.strokeStyle = fillColor;
+  ctx.lineJoin = 'round'; 
+  ctx.lineCap = 'round';
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(centerX, centerY, radius, -Math.PI / 2, -Math.PI / 2 + angle);
+  ctx.lineWidth = lineWidth;
+  ctx.strokeStyle = strokeColor;
+  ctx.stroke();
+  ctx.font = '20px sans-serif';
+  ctx.fillStyle = '#fff';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(percent, centerX-2, centerY); 
+  ctx.font = '10px sans-serif';
+  ctx.fillStyle = '#fff';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText("%", centerX+13, centerY - 6);
+}
 /* End Movie Detail for Hover */
 
-/* Build Modal for trailer */
+/* ------------------------Build Modal for trailer ---------------------------*/
 export function getTrailer(movieId) {
   getMovieTrailer(movieId)
     .then((movieTrailers) => {
-      console.log(movieTrailers);
       const result = movieTrailers.filter(
         (trailer) => trailer.type == "Trailer"
       );
@@ -59,6 +148,8 @@ export function getTrailer(movieId) {
     })
     .catch((error) => console.error(error));
 }
+
+/* Function to display Modal */
 function displayTrailerModal(trailerKey) {
   const modalContainer = document.querySelector(".trailer-modal");
   modalContainer.innerHTML = `
@@ -72,6 +163,7 @@ function displayTrailerModal(trailerKey) {
     `;
 }
 
+/* Function to manage modal event */
 function modalEvent(trailerKey) {
   const getModalOpen = document.querySelector("#btn-openModal-trailer");
   const getbody = document.querySelector(".movie-detail");
@@ -113,11 +205,10 @@ function modalEvent(trailerKey) {
   }
 }
 
-/* Build Modal for trailer */
+/*------------------------- Get Movie Credits -----------------------------------*/
 export function movieCredits(movieId, selector) {
   getMovieCredits(movieId)
     .then((credits) => {
-      console.log(credits);
       const result = credits.filter(
         (trailer) => trailer.known_for_department == "Acting"
       );
@@ -126,6 +217,7 @@ export function movieCredits(movieId, selector) {
     .catch((error) => console.error(error));
 }
 
+/* Function to display main cast */
 function displayMainCast(credits, selector) {
   const movieCastContainer = document.querySelector(selector);
   const getCastArray = credits.map((item) => {
@@ -140,8 +232,7 @@ function displayMainCast(credits, selector) {
   movieCastContainer.insertAdjacentHTML("afterbegin", getCastArray.join(""));
 }
 
-/* Information Movie */
-
+/* ------------------------- Information Movie ----------------------------------*/
 function displayMovieInformation(movie) {
   const movieInformationContainer =
     document.querySelector(".information-movie");
@@ -165,40 +256,49 @@ function displayMovieInformation(movie) {
     <h4>Original Language</h4>
     <p>${nameOfLanguage.english_name}</p>
     <h4>Budget</h4>
-    <p>${budget.toLocaleString("en-US", { style: "currency", currency: "USD" })}</p>
+    <p>${budget.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+    })}</p>
     <h4>Revenue</h4>
-    <p>${revenue.toLocaleString("en-US", { style: "currency", currency: "USD" })}</p>
+    <p>${revenue.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+    })}</p>
     <hr>
   `;
 }
 
-
-/* Movie Recommendations */
-
+/*--------------------------- Movie Recommendations --------------------------------*/
 export function movieRecommendations(movieId, selector) {
   getRecommendations(movieId)
-  .then((recommendation) => {
-    console.log(recommendation);
-    displayRecommendations(recommendation,selector)
-  })
-  .catch((error) => console.log(error)) 
+    .then((recommendation) => {
+      displayRecommendations(recommendation, selector);
+    })
+    .catch((error) => console.log(error));
 }
 
+/* Function to display movie Recommendations */
 function displayRecommendations(recommendation, selector) {
-  const recommendationContainer = document.querySelector(selector)
+  const recommendationContainer = document.querySelector(selector);
   const getRecommendationsArray = recommendation.map((item) => {
     return `
     <li>
       <a href="/movie_detail/index.html?movie=${item.id}">
-        <img src="https://www.themoviedb.org/t/p/w250_and_h141_face/${item.backdrop_path}" />
+        <img src="https://www.themoviedb.org/t/p/w250_and_h141_face/${
+          item.backdrop_path
+        }" />
       </a>
       <div>
         <a href="/movie_detail/index.html?movie=${item.id}">${item.title}</a>
-        <p>${(item.vote_average*10).toFixed(0)}%</p>
+        <p>${(item.vote_average * 10).toFixed(0)}%</p>
       </div>
     </li>
-    `
-  })
-  recommendationContainer.insertAdjacentHTML("afterbegin", getRecommendationsArray.join(""));
+    `;
+  });
+  recommendationContainer.insertAdjacentHTML(
+    "afterbegin",
+    getRecommendationsArray.join("")
+  );
 }
 /* End Movie Recommendations */
