@@ -239,7 +239,7 @@ export async function getMovieById(movieId) {
       },
     };
   
-    return await fetch(`${baseURL}movie/${movieId}?language=en-US`, options)
+    return await fetch(`${baseURL}movie/${movieId}?append_to_response=release_dates&language=en-US`, options)
       .then((response) => response.json())
       .catch((err) => console.error(err));
   }
