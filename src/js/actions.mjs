@@ -1,49 +1,112 @@
-import { addFavoriteMovie, addWatchlistMovie } from "./externalServices.mjs";
-import { getParam } from "./utils.mjs";
+import {
+  addFavoriteMovie,
+  addWatchlistMovie,
+  deleteFavoriteMovie,
+  deleteWatchlistMovie,
+  getMovieStatus,
+} from "./externalServices.mjs";
 
+const getSessionId = localStorage.getItem("session");
 
-const movieId = getParam("movie")
+/* Add/Delete Favorite Movie Code */
 
-function favoriteMovie(movie_id) {
-  const getSessionId = localStorage.getItem("session");
-  if (getSessionId == null || getSessionId == []) {
-    window.location.href = "/login/index.html";
-  } else {
-    addFavoriteMovie(movie_id, getSessionId)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => console.log(error));
-  }
+function checkFavoriteStatus(movieId, imageSelector) {
+  const getImageSelector = document.querySelector(imageSelector);
+  getMovieStatus(movieId, getSessionId)
+    .then((status) => {
+      if (status.favorite == true) {
+        getImageSelector.src = "../images/heart-icon.png";
+        deleteFavoriteMovie(movieId, getSessionId);
+        status.favorite = false;
+      } else {
+        getImageSelector.src = "../images/heart-iconred.png";
+        addFavoriteMovie(movieId, getSessionId);
+        status.favorite = true;
+      }
+    })
+    .catch((err) => console.error(err));
 }
 
-export function eventAddFavorite(selector, imageSelector) {
+export function eventFavoriteMovie(movieId, selector, imageSelector) {
   const getContainer = document.querySelector(selector);
-  getContainer.addEventListener("click", function(){
-    const getImageSelector = document.querySelector(imageSelector);
-    getImageSelector.src = "../images/heart-iconred.png"
-    favoriteMovie(movieId);
+  const getImageSelector = document.querySelector(imageSelector);
+  if (getSessionId != null) {
+    getMovieStatus(movieId, getSessionId).then((status) => {
+      if (status.favorite) {
+        getImageSelector.src = "../images/heart-iconred.png";
+      } else {
+        getImageSelector.src = "../images/heart-icon.png";
+      }
+    });
+  }
+  getContainer.addEventListener("click", function () {
+    if (getSessionId == null || getSessionId == []) {
+      window.location.href = "/login/index.html";
+    } else {
+      checkFavoriteStatus(movieId, imageSelector);
+    }
   });
 }
 
-function watchlist(movie_id) {
-  const getSessionId = localStorage.getItem("session");
-  if (getSessionId == null || getSessionId == []) {
-    window.location.href = "/login/index.html";
-  } else {
-    addWatchlistMovie(movie_id, getSessionId)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => console.log(error));
-  }
+/* End Add/Delete Favorite Movie Code */
+
+/* ------------------------- */
+
+/* Add/Delete Watchlist Movie Code */
+function checkWatchlistStatus(movieId, imageSelector) {
+  const getImageSelector = document.querySelector(imageSelector);
+  getMovieStatus(movieId, getSessionId)
+    .then((status) => {
+      if (status.watchlist == true) {
+        getImageSelector.src = "../images/watchlist-icon.png";
+        deleteWatchlistMovie(movieId, getSessionId);
+        status.watchlist = false;
+      } else {
+        getImageSelector.src = "../images/watchlist-iconred.png";
+        addWatchlistMovie(movieId, getSessionId);
+        status.watchlist = true;
+      }
+    })
+    .catch((err) => console.error(err));
 }
 
-export function eventAddWatchlist(selector, imageSelector) {
+export function eventWatchlistMovie(movieId, selector, imageSelector) {
   const getContainer = document.querySelector(selector);
-  getContainer.addEventListener("click", function(){
-    const getImageSelector = document.querySelector(imageSelector);
-    getImageSelector.src = "../images/watchlist-iconred.png"
-    watchlist(movieId);
+  const getImageSelector = document.querySelector(imageSelector);
+  if (getSessionId != null) {
+    getMovieStatus(movieId, getSessionId).then((status) => {
+      if (status.watchlist) {
+        getImageSelector.src = "../images/watchlist-iconred.png";
+      } else {
+        getImageSelector.src = "../images/watchlist-icon.png";
+      }
+    })
+    .catch((err) => console.error(err));
+  }
+  getContainer.addEventListener("click", function () {
+    if (getSessionId == null || getSessionId == []) {
+      window.location.href = "/login/index.html";
+    } else {
+      checkWatchlistStatus(movieId, imageSelector);
+    }
   });
 }
+
+/* End Add/Delete Watchlist Movie Code */
+
+/* Add/Delete rating Movie Code */
+
+export function checkRatingStatus(movieId){ 
+  getMovieStatus(movieId, getSessionId)
+  .then((rating) => {
+    if (!rating.rated) {
+
+    } else {
+      console.log(rating.rated.value)
+    }
+  })
+  .catch((err) => console.error(err));
+}
+
+
+/* End Add/Delete rating Movie Code */

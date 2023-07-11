@@ -14,6 +14,7 @@ getTrailer(movieId)
 movieCredits(movieId, selectorMainCast)
 
 movieRecommendations(movieId, selectorRecommendation)
+
 /* setTimeout(() => {
     document.querySelector(".add-favorite").addEventListener("click", (e) => {
         const getFavorite = e.target;

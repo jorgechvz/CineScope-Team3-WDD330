@@ -99,12 +99,12 @@ button {
   margin: auto;
   width: 70%;
 }
-#btn-openModal-trailer{
+#btn-openModal-trailer {
   cursor: pointer;
   font-weight: bold;
 }
-.play-icon{
-  padding-right: .2em;
+.play-icon {
+  padding-right: 0.2em;
   font-size: 1.2em;
 }
 /* End Modal Styles */
@@ -154,14 +154,14 @@ button {
 .main-detail {
   margin: 0;
 }
-.movie-certification{
+.movie-certification {
   border-radius: 5px;
   border: solid 1px #acacac;
-  padding: .1em .2em;
+  padding: 0.1em 0.2em;
   text-align: center;
   color: #acacac;
 }
-.movie-genres a{
+.movie-genres a {
   text-decoration: none;
   color: #fff;
 }
@@ -193,43 +193,43 @@ button {
 .container-movie-cover div {
   color: #ffffff;
 }
-.container-actions-movie{
+.container-actions-movie {
   padding: 0;
   margin: 0;
   display: flex;
   align-items: center;
   gap: 1em;
 }
-.container-actions-movie li{
+.container-actions-movie li {
   list-style: none;
 }
-.average-movie{
+.average-movie {
   display: flex;
   align-items: center;
-  gap: .5em;
+  gap: 0.5em;
 }
 
 #myCanvas {
   background-color: #00021bcb;
   border-radius: 50%;
 }
-.actions{
+.actions {
   background-color: #000318;
   display: flex;
   align-items: center;
   border-radius: 50%;
-  padding: .7em;
+  padding: 0.7em;
   cursor: pointer;
 }
-.icon-actions{
+.icon-actions {
   width: 20px;
+  border: none;
 }
 /* Content Container  */
 
 .div-title {
-  margin: .2em 0;
+  margin: 0.2em 0;
 }
-
 
 .content-container {
   max-width: 1440px;
@@ -311,13 +311,13 @@ button {
 .recommendation-movies {
   grid-auto-columns: 262px;
   gap: 0.7em;
-  padding: 1em 0 .5em;
+  padding: 1em 0 0.5em;
 }
 .recommendation-movies li div {
   display: flex;
   justify-content: space-between;
-  margin-top: .3em;
-  margin-right: .2em;
+  margin-top: 0.3em;
+  margin-right: 0.2em;
 }
 .recommendation-movies li {
   border: none;
@@ -329,14 +329,14 @@ button {
 .recommendation-movies li div a {
   text-decoration: none;
   color: #000;
-  white-space: nowrap; 
-  overflow: hidden; 
-  text-overflow: ellipsis; 
-  font-size: .8em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.8em;
 }
-.recommendation-movies li div p{
+.recommendation-movies li div p {
   margin: 0;
-  font-size: .8em;
+  font-size: 0.8em;
 }
 
 /* End Recommendation Styles */
@@ -353,4 +353,52 @@ button {
   #trailerIframe {
     height: 800px;
   }
+}
+
+/* Movie Rating Styles */
+
+.rate {
+  display: inline-block;
+  border: 0;
+}
+/* Hide radio */
+.rate > input {
+  display: none;
+}
+/* Order correctly by floating highest to the right */
+.rate > label {
+  float: right;
+}
+/* The star of the show */
+.rate > label:before {
+  display: inline-block;
+  font-size: 30px;
+  padding: 0.3rem 0.3rem;
+  margin: 0 2px;
+  cursor: pointer;
+  font-family: "Font Awesome 5 Free";
+  content: "\f005";
+  font-weight: 900;
+}
+/* Zero stars rating */
+.rate > label:last-child:before {
+  font-weight: 500;
+}
+/* Half star trick */
+.rate .half:before {
+  content: "\f089 "; /* half star no outline */
+  position: absolute;
+  padding-right: 0;
+}
+/* Click + hover color */
+input:checked ~ label, /* color current and previous stars on checked */
+label:hover, label:hover ~ label {
+  color: #51750d;
+} /* color previous stars on hover */
+
+/* Hover highlights */
+input:checked + label:hover, input:checked ~ label:hover, /* highlight current and previous stars */
+input:checked ~ label:hover ~ label, /* highlight previous selected stars for new rating */
+label:hover ~ input:checked ~ label /* highlight previous selected stars */ {
+  color: #a6e72d;
 }
