@@ -53,14 +53,14 @@ function displayMovieDetail(movie, selector) {
   const getContainerMovie = document.querySelector(".container-movie-cover");
   getContainerMovie.style.backgroundImage = `url("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/${movie.backdrop_path}")`;
   buildCanvasUserScore(movie.vote_average);
-  eventFavoriteMovie(movie.id,".add-favorite",".heart-icon");
-  eventWatchlistMovie(movie.id,".add-watchlist",".watchlist-icon"); 
+  eventFavoriteMovie(movie.id, ".add-favorite", ".heart-icon");
+  eventWatchlistMovie(movie.id, ".add-watchlist", ".watchlist-icon");
   checkRatingStatus(movie.id);
   document.querySelector(".add-rating").addEventListener("click", buildRatingMovie)
 }
 
 /* Function to get movie's release information*/
-function getReleaseInformation(movie){
+function getReleaseInformation(movie) {
   const getGenres = movie.genres.map((item) => {
     return `
       <a href="">${item.name}</a>
@@ -117,7 +117,7 @@ function buildCanvasUserScore(movie) {
   ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
   ctx.lineWidth = lineWidth;
   ctx.strokeStyle = fillColor;
-  ctx.lineJoin = 'round'; 
+  ctx.lineJoin = 'round';
   ctx.lineCap = 'round';
   ctx.stroke();
   ctx.beginPath();
@@ -129,18 +129,18 @@ function buildCanvasUserScore(movie) {
   ctx.fillStyle = '#fff';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText(percent, centerX-2, centerY); 
+  ctx.fillText(percent, centerX - 2, centerY);
   ctx.font = '10px sans-serif';
   ctx.fillStyle = '#fff';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText("%", centerX+13, centerY - 6);
+  ctx.fillText("%", centerX + 13, centerY - 6);
 }
 /* End Movie Detail for Hover */
 
 /* Build Modal to Rating Movie */
 
-function buildRatingMovie(){
+function buildRatingMovie() {
   const ratingContainer = document.querySelector(".add-rating");
   const createDiv = document.createElement('div');
   createDiv.className = "rating-container"
@@ -295,14 +295,14 @@ function displayMovieInformation(movie) {
     <p>${nameOfLanguage.english_name}</p>
     <h4>Budget</h4>
     <p>${budget.toLocaleString("en-US", {
-      style: "currency",
-      currency: "USD",
-    })}</p>
+    style: "currency",
+    currency: "USD",
+  })}</p>
     <h4>Revenue</h4>
     <p>${revenue.toLocaleString("en-US", {
-      style: "currency",
-      currency: "USD",
-    })}</p>
+    style: "currency",
+    currency: "USD",
+  })}</p>
     <hr>
   `;
 }
@@ -323,9 +323,8 @@ function displayRecommendations(recommendation, selector) {
     return `
     <li>
       <a href="/movie_detail/index.html?movie=${item.id}">
-        <img src="https://www.themoviedb.org/t/p/w250_and_h141_face/${
-          item.backdrop_path
-        }" />
+        <img src="https://www.themoviedb.org/t/p/w250_and_h141_face/${item.backdrop_path
+      }" />
       </a>
       <div>
         <a href="/movie_detail/index.html?movie=${item.id}">${item.title}</a>
