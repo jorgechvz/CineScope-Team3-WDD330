@@ -387,3 +387,23 @@ export async function addRatingMovie(movie_id, rating, sessionId) {
     .then((response) => response.json())
     .catch((err) => console.error(err));
 }
+
+/* Movie List */
+
+export async function topRated(movie_id) {
+  const options = {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: `Bearer ${baseToken}`,
+    }
+  };
+
+  return await fetch(
+    `${baseURL}movie/${movie_id}/top_rated?language=en-US&page=1`,
+    options
+  )
+    .then((response) => response.json())
+    .then((response) => response.results)
+    .catch((err) => console.error(err));
+}
