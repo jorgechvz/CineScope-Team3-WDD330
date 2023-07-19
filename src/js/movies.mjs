@@ -1,7 +1,9 @@
-import { getMovieByNowPlaying, getMovies } from "./externalServices.mjs";
+import { getMoviesByCategory } from "./externalServices.mjs";
+import { getParam } from "./utils.mjs";
 
+const category = getParam("category");
 export function movies() {
-  getMovies(1)
+  getMoviesByCategory(1, category)
     .then((products) => {
       console.log(products);
       displayMovies(products);
