@@ -1,8 +1,9 @@
 const baseToken = import.meta.env.VITE_AUTHORIZATION_TOKEN;
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
-/* All Get Movies */
-export async function getMovies(page) {
+/* All Get Movies by Category */
+
+export async function getMoviesByCategory(page, category) {
   const options = {
     method: "GET",
     headers: {
@@ -12,7 +13,7 @@ export async function getMovies(page) {
   };
 
   return await fetch(
-    `${baseURL}movie/popular?language=en-US&page=${page}`,
+    `${baseURL}movie/${category}?language=en-US&page=${page}`,
     options
   )
     .then((response) => response.json())
@@ -20,7 +21,7 @@ export async function getMovies(page) {
     .catch((err) => console.error(err));
 }
 
-export async function getMovieByNowPlaying() {
+export async function getPagesMoviesByCategory(category) {
   const options = {
     method: "GET",
     headers: {
@@ -30,41 +31,11 @@ export async function getMovieByNowPlaying() {
   };
 
   return await fetch(
-    `${baseURL}movie/now_playing?language=en-US&page=1`,
+    `${baseURL}movie/${category}?language=en-US`,
     options
   )
     .then((response) => response.json())
-    .then((response) => response.results)
-    .catch((err) => console.error(err));
-}
-
-export async function getMovieByTopRated() {
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${baseToken}`,
-    },
-  };
-
-  return await fetch(`${baseURL}movie/top_rated?language=en-US&page=1`, options)
-    .then((response) => response.json())
-    .then((response) => response.results)
-    .catch((err) => console.error(err));
-}
-
-export async function getMovieByUpcoming() {
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${baseToken}`,
-    },
-  };
-
-  return await fetch(`${baseURL}movie/upcoming?language=en-US&page=1`, options)
-    .then((response) => response.json())
-    .then((response) => response.results)
+    .then((response) => response.total_pages)
     .catch((err) => console.error(err));
 }
 
@@ -138,7 +109,7 @@ export async function addFavoriteMovie(movie_id, sessionId) {
   };
 
   return await fetch(
-    `${baseURL}account/account_id/favorite??session_id=${sessionId}`,
+    `${baseURL}account/account_id/favorite?session_id=${sessionId}`,
     options
   )
     .then((response) => response.json())
@@ -160,7 +131,7 @@ export async function deleteFavoriteMovie(movie_id, sessionId) {
   };
 
   return await fetch(
-    `${baseURL}account/account_id/favorite??session_id=${sessionId}`,
+    `${baseURL}account/account_id/favorite?session_id=${sessionId}`,
     options
   )
     .then((response) => response.json())
@@ -183,7 +154,7 @@ export async function addWatchlistMovie(movie_id, sessionId) {
   };
 
   return await fetch(
-    `${baseURL}account/account_id/watchlist??session_id=${sessionId}`,
+    `${baseURL}account/account_id/watchlist?session_id=${sessionId}`,
     options
   )
     .then((response) => response.json())
@@ -205,7 +176,7 @@ export async function deleteWatchlistMovie(movie_id, sessionId) {
   };
 
   return await fetch(
-    `${baseURL}account/account_id/watchlist??session_id=${sessionId}`,
+    `${baseURL}account/account_id/watchlist?session_id=${sessionId}`,
     options
   )
     .then((response) => response.json())
@@ -388,22 +359,20 @@ export async function addRatingMovie(movie_id, rating, sessionId) {
     .catch((err) => console.error(err));
 }
 
-/* Movie List */
-
-export async function topRated(movie_id) {
+export async function deleteRatingMovie(movie_id, sessionId) {
   const options = {
-    method: 'GET',
+    method: "DELETE",
     headers: {
-      accept: 'application/json',
+      accept: "application/json",
       Authorization: `Bearer ${baseToken}`,
-    }
+    },
   };
 
   return await fetch(
-    `${baseURL}movie/${movie_id}/top_rated?language=en-US&page=1`,
+    `${baseURL}movie/${movie_id}/rating?session_id=${sessionId}`,
     options
   )
     .then((response) => response.json())
-    .then((response) => response.results)
     .catch((err) => console.error(err));
 }
+

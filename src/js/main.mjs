@@ -1,4 +1,4 @@
-import { getMovieById, getMovieByNowPlaying, getMovies, getMovieByTopRated, getMovieByUpcoming } from "./externalServices.mjs";
+import { getMovieById, getMoviesByCategory } from "./externalServices.mjs";
 import { getTrailer } from "./movieDetail.mjs";
 
 export function mainMovie() {
@@ -7,10 +7,9 @@ export function mainMovie() {
   const popular = ".popular-movies";
   const toprated = ".toprated-movies";
   const upcomming = ".upcomming-movies";
-  getMovieByTopRated().
+  getMoviesByCategory(1, "now_playing").
     then((movie) => {
       const movieId = getRandomMovieId(movie)
-
       movieDetail(movieId, selectorHoverDetail);
       getTrailer(movieId);
       movieNowPlaying(nowPlaying);
@@ -65,7 +64,7 @@ function displayMovieDetail(movie, selector) {
 }
 
 function movieNowPlaying(selector) {
-  getMovieByNowPlaying()
+  getMoviesByCategory(1, "now_playing")
     .then((nowPlaying) => {
       displayMovies(nowPlaying, selector);
     })
@@ -73,7 +72,7 @@ function movieNowPlaying(selector) {
 }
 
 function moviePopular(selector) {
-  getMovies(1)
+  getMoviesByCategory(1, "popular")
     .then((nowPlaying) => {
       displayMovies(nowPlaying, selector);
     })
@@ -81,7 +80,7 @@ function moviePopular(selector) {
 }
 
 function movieTopRated(selector) {
-  getMovieByTopRated()
+  getMoviesByCategory(1, "top_rated")
     .then((nowPlaying) => {
       displayMovies(nowPlaying, selector);
     })
@@ -89,7 +88,7 @@ function movieTopRated(selector) {
 }
 
 function movieUpcoming(selector) {
-  getMovieByUpcoming()
+  getMoviesByCategory(1, "upcoming")
     .then((nowPlaying) => {
       displayMovies(nowPlaying, selector);
     })

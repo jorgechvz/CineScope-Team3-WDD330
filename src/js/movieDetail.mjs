@@ -1,4 +1,4 @@
-import { checkRatingStatus, eventFavoriteMovie, eventWatchlistMovie } from "./actions.mjs";
+import { eventFavoriteMovie, eventRatingMovie, eventWatchlistMovie } from "./actions.mjs";
 import {
   getMovieById,
   getMovieCredits,
@@ -55,8 +55,8 @@ function displayMovieDetail(movie, selector) {
   buildCanvasUserScore(movie.vote_average);
   eventFavoriteMovie(movie.id, ".add-favorite", ".heart-icon");
   eventWatchlistMovie(movie.id, ".add-watchlist", ".watchlist-icon");
-  checkRatingStatus(movie.id);
-  document.querySelector(".add-rating").addEventListener("click", buildRatingMovie)
+  /* checkRatingStatus(movie.id); */ 
+  eventRatingMovie(".add-rating", movie.id, ".star-icon"); 
 }
 
 /* Function to get movie's release information*/
@@ -140,38 +140,8 @@ function buildCanvasUserScore(movie) {
 
 /* Build Modal to Rating Movie */
 
-function buildRatingMovie() {
-  const ratingContainer = document.querySelector(".add-rating");
-  const createDiv = document.createElement('div');
-  createDiv.className = "rating-container"
-  createDiv.innerHTML = `
-      <fieldset class="rate">
-        <input type="radio" id="rating10" name="rating" value="10" />
-        <label for="rating10" title="5 stars"></label>
-        <input type="radio" id="rating9" name="rating" value="9" />
-        <label class="half" for="rating9" title="4 1/2 stars"></label>
-        <input type="radio" id="rating8" name="rating" value="8" />
-        <label for="rating8" title="4 stars"></label>
-        <input type="radio" id="rating7" name="rating" value="7" />
-        <label class="half" for="rating7" title="3 1/2 stars"></label>
-        <input type="radio" id="rating6" name="rating" value="6" />
-        <label for="rating6" title="3 stars"></label>
-        <input type="radio" id="rating5" name="rating" value="5" />
-        <label class="half" for="rating5" title="2 1/2 stars"></label>
-        <input type="radio" id="rating4" name="rating" value="4" />
-        <label for="rating4" title="2 stars"></label>
-        <input type="radio" id="rating3" name="rating" value="3" />
-        <label class="half" for="rating3" title="1 1/2 stars"></label>
-        <input type="radio" id="rating2" name="rating" value="2" />
-        <label for="rating2" title="1 star"></label>
-        <input type="radio" id="rating1" name="rating" value="1" />
-        <label class="half" for="rating1" title="1/2 star"></label>
-        <input type="radio" id="rating0" name="rating" value="0" />
-        <label for="rating0" title="No star"></label>
-      </fieldset>
-  `
-  ratingContainer.appendChild(createDiv)
-}
+
+
 /* End Build Modal to Rating Movie */
 
 /* ------------------------Build Modal for trailer ---------------------------*/
@@ -204,7 +174,7 @@ function displayTrailerModal(trailerKey) {
 /* Function to manage modal event */
 function modalEvent(trailerKey) {
   const getModalOpen = document.querySelector("#btn-openModal-trailer");
-  const getbody = document.querySelector(".movie-detail");
+  /* const getbody = document.querySelector(".movie-detail"); */
   if (getModalOpen) {
     getModalOpen.addEventListener("click", (e) => {
       e.preventDefault();
@@ -218,8 +188,8 @@ function modalEvent(trailerKey) {
 
       if (closeModal) {
         closeModal.addEventListener("click", () => {
-          getModal.style.display = "none";
-          getbody.style.filter = "none";
+          getModal.style.display = "none";/* 
+          getbody.style.filter = "none"; */
           if (stopVideo) {
             trailerIframe.src = "";
           }
@@ -227,16 +197,16 @@ function modalEvent(trailerKey) {
       }
       window.addEventListener("click", (event) => {
         if (event.target === getModal) {
-          getModal.style.display = "none";
-          getbody.style.filter = "none";
+          getModal.style.display = "none";/* 
+          getbody.style.filter = "none"; */
           if (stopVideo) {
             trailerIframe.src = "";
-            trailerIframe = null;
+            /* trailerIframe = null; */
           }
         }
       });
-      getModal.style.display = "flex";
-      getbody.style.filter = "grayscale(100%)";
+      getModal.style.display = "flex";/* 
+      getbody.style.filter = "grayscale(100%)"; */
     });
   } else {
     setTimeout(modalEvent, 1);
