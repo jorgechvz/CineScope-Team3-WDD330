@@ -1,5 +1,7 @@
 import { getTrailer, movieCredits, movieDetail, movieRecommendations } from "./movieDetail.mjs";
-import { getParam } from "./utils.mjs";
+import { btnLoginLogout, getParam, loadHeaderFooter } from "./utils.mjs";
+loadHeaderFooter();
+btnLoginLogout();
 
 const movieId = getParam("movie");
 const selectorHoverDetail = ".movie-detail";

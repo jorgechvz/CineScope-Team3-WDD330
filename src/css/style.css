@@ -50,6 +50,10 @@ button {
   font-size: var(--large-font);
   cursor: pointer;
 }
+.movies{
+  width: 1200px;
+  margin: auto;
+}
 .movie-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -61,14 +65,30 @@ button {
   text-decoration: none;
   color: var(--dark-grey);
 }
-/* Home page */
-.header-hero {
-  position: absolute;
+.pagination {
   display: flex;
+  justify-content: center;
+}
+.pagination span {
+  font-size: 2em;
+  margin: 0 1em;
+}
+#prevPage,
+#nextPage {
+  font-size: 2em;
+  text-decoration: none;
+  color: #000;
+}
+
+/* Home page */
+
+.header-hero {
+  display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding: 0 10px;
+  padding: 0 4em;
   width: 100%;
-  background-color: rgb(255, 255, 255, 0.4);
+  background-color: rgb(3, 0, 22);
   background-size: cover;
   z-index: 1;
   height: 14%;
@@ -76,7 +96,7 @@ button {
 
 .container-hero-cover {
   width: 100%;
-  height: 100vh;
+  height: 90vh;
   margin: 0;
   background-size: cover;
   background-repeat: no-repeat;
@@ -91,10 +111,10 @@ button {
   );
   background-size: cover;
   width: 100%;
-  height: 100vh;
+  height: 90vh;
   filter: brightness(
     90%
-  ); /* Adjust the value to control the darkness (0% - 100%) */
+  ); 
 }
 
 .hero-container {
@@ -107,12 +127,14 @@ button {
   flex-direction: column;
   color: white;
   font-size: 1rem;
-  /* background-color: rgb(0, 0, 0, 0.1);
-  border-radius: 10%; */
   justify-content: center;
   height: 90vh;
 }
-
+.header-section {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
 .hero-title,
 .hero-date {
   font-size: 3rem;
@@ -161,6 +183,12 @@ button {
 
 .listcontent-container {
   padding: 2em;
+}
+
+.categories a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 1em;
 }
 
 /* Modal Styles  */
@@ -216,11 +244,11 @@ button {
   font-size: 1.5em;
   cursor: pointer;
 }
-.close-modal:hover{
+.close-modal:hover {
   background-color: rgba(221, 219, 219, 0.171);
   border-radius: 5px;
 }
-.close-modal-rate:hover, 
+.close-modal-rate:hover,
 .close-modal-list:hover {
   background-color: rgba(44, 44, 44, 0.171);
   border-radius: 5px;
@@ -587,10 +615,10 @@ label:hover ~ input:checked ~ label {
 /* Create List styles */
 
 .form-list-create {
-  display: none; 
+  display: none;
 }
 .form-list-create.active {
-  display: block; 
+  display: block;
 }
 
 .lists {
@@ -599,19 +627,19 @@ label:hover ~ input:checked ~ label {
   align-items: center;
   margin-bottom: 0.5em;
   border-bottom: solid #000 1px;
-  padding: .2em;
+  padding: 0.2em;
 }
 .lists div p {
-  margin: .2em ;
+  margin: 0.2em;
 }
-.lists div p:first-child{
+.lists div p:first-child {
   font-weight: bold;
 }
 .lists div p:last-child {
-  font-size: .8em;
+  font-size: 0.8em;
 }
 .lists button {
-  font-size: .9em;
+  font-size: 0.9em;
   background-color: #fff;
   color: #000;
 }
@@ -622,21 +650,21 @@ label:hover ~ input:checked ~ label {
 }
 
 .lists-modal-footer {
-  padding: .5em .5em 1em;
+  padding: 0.5em 0.5em 1em;
 }
-.camp-form-list{
+.camp-form-list {
   display: flex;
   flex-direction: column;
-  margin-bottom: .8em;
+  margin-bottom: 0.8em;
 }
-.camp-form-list input{
-  text-indent: .3em;
-  padding: .5em 0;
+.camp-form-list input {
+  text-indent: 0.3em;
+  padding: 0.5em 0;
 }
 #createList {
   background-color: var(--secondary-color);
   color: #fff;
-  padding: .3em 1em;
+  padding: 0.3em 1em;
   font-size: 1em;
   border: none;
   border-radius: 20px;
