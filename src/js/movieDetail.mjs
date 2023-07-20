@@ -1,5 +1,6 @@
-import { eventFavoriteMovie, eventRatingMovie, eventWatchlistMovie } from "./actions.mjs";
+import { checkList, eventFavoriteMovie, eventRatingMovie, eventWatchlistMovie } from "./actions.mjs";
 import {
+  getAllList,
   getMovieById,
   getMovieCredits,
   getMovieTrailer,
@@ -14,6 +15,7 @@ export function movieDetail(movieId, selector) {
       console.log(movie);
       displayMovieDetail(movie, selector);
       displayMovieInformation(movie);
+      checkList(".add-list", movie.id,".lists-modal-body");
     })
     .catch((error) => console.error(error));
 }
@@ -55,8 +57,8 @@ function displayMovieDetail(movie, selector) {
   buildCanvasUserScore(movie.vote_average);
   eventFavoriteMovie(movie.id, ".add-favorite", ".heart-icon");
   eventWatchlistMovie(movie.id, ".add-watchlist", ".watchlist-icon");
-  /* checkRatingStatus(movie.id); */ 
   eventRatingMovie(".add-rating", movie.id, ".star-icon"); 
+
 }
 
 /* Function to get movie's release information*/
@@ -137,12 +139,6 @@ function buildCanvasUserScore(movie) {
   ctx.fillText("%", centerX + 13, centerY - 6);
 }
 /* End Movie Detail for Hover */
-
-/* Build Modal to Rating Movie */
-
-
-
-/* End Build Modal to Rating Movie */
 
 /* ------------------------Build Modal for trailer ---------------------------*/
 export function getTrailer(movieId) {
@@ -309,3 +305,11 @@ function displayRecommendations(recommendation, selector) {
   );
 }
 /* End Movie Recommendations */
+
+
+/* Display Movie List for Users */
+
+
+
+
+/* End Display Movie List for Users */
