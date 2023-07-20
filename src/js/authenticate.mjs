@@ -6,6 +6,8 @@ import {
   logoutSession,
 } from "./externalServices.mjs";
 
+const baseURL = import.meta.env.VITE_URL;
+
 let requestToken;
 let sessionId;
 
@@ -14,7 +16,7 @@ export async function fetchRequestToken() {
     const response = await getRequestToken();
     requestToken = response.request_token;
   } catch (error) {
-    console.error("Error al obtener el token de solicitud:", error);
+    console.error(error);
   }
 }
 
@@ -26,24 +28,22 @@ export async function login(username, password) {
   };
   try {
     const response = await loginSession(credentials);
-    console.log(response);
     if (response.success == false) {
       const failure = document.querySelector(".message_failure");
       failure.innerHTML = response.status_message;
     }
   } catch (error) {
-    console.error("Error al iniciar sesión:", error);
+    console.error(error);
   }
 }
 
 export async function session() {
   try {
     const response = await createSession(requestToken);
-    console.log(response);
     sessionId = response.session_id;
     localStorage.setItem("session", sessionId);
     if (response.success == true) {
-      window.location = "http://localhost:5173/";
+      window.location = `${baseURL}`;
     }
   } catch (error) {
     console.error("Error al iniciar sesión:", error);
@@ -64,7 +64,7 @@ export function newUser() {
   const urlRedirect = document.querySelector(".sign-up-btn");
   urlRedirect.setAttribute(
     "href",
-    `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=http://localhost:5173/login/index.html`
+    `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${baseURL}login/index.html`
   );
 }
 
@@ -89,11 +89,11 @@ export function logout() {
     console.log(session);
     if ((session.success = true)) {
       localStorage.clear();
-      window.location = "http://localhost:5173/login/index.html";
+      window.location = `${baseURL}login/index.html`;
     }
   });
 }
 
 export function loginBtn() {
-  window.location = "http://localhost:5173/login/index.html";
+  window.location = `${baseURL}login/index.html`;
 }

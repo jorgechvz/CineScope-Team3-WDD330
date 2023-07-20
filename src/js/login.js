@@ -39,6 +39,6 @@ if (approve == "true") {
   sessionWithoutUser(token);
   setTimeout(() => {
     getAccount();
-    window.location = "http://localhost:5173/";
+    window.location = "../../index.html";
   }, 1000);
 }
