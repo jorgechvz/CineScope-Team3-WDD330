@@ -1,25 +1,10 @@
-import { mainMovie } from "./main.mjs"
+import { mainMovie } from "./main.mjs";
 import { getAccount, logout } from "./authenticate.mjs";
+import { btnLoginLogout, loadHeaderFooter } from "./utils.mjs";
+loadHeaderFooter();
 
-
-document.querySelector(".logout-btn").addEventListener("click", (e) => {
-    e.preventDefault();
-    logout();
-});
-
+btnLoginLogout();
 
 mainMovie();
 
 
-// const movieId = "19404";
-// const selectorHoverDetail = ".movie-detail";
-// const selectorMainCast = ".movie-cast";
-// const selectorRecommendation = ".recommendation-movies"
-
-// movieDetail(movieId, selectorHoverDetail)
-
-// getTrailer(movieId)
-
-// movieCredits(movieId, selectorMainCast)
-
-// movieRecommendations(movieId, selectorRecommendation)

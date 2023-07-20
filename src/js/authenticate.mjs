@@ -93,3 +93,7 @@ export function logout() {
     }
   });
 }
+
+export function loginBtn() {
+  window.location = "http://localhost:5173/login/index.html";
+}

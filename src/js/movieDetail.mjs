@@ -12,7 +12,6 @@ import {
 export function movieDetail(movieId, selector) {
   getMovieById(movieId)
     .then((movie) => {
-      console.log(movie);
       displayMovieDetail(movie, selector);
       displayMovieInformation(movie);
       checkList(".add-list", movie.id,".lists-modal-body");
