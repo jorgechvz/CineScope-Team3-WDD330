@@ -1,10 +1,13 @@
 import {
   addFavoriteMovie,
+  addMovieToList,
   addRatingMovie,
   addWatchlistMovie,
+  createList,
   deleteFavoriteMovie,
   deleteRatingMovie,
   deleteWatchlistMovie,
+  getAllList,
   getMovieStatus,
 } from "./externalServices.mjs";
 
@@ -150,7 +153,7 @@ function checkRatingMovie(movieId, imageSelector) {
   });
 }
 
-async function eventRating(movieId, imageSelector) {
+function eventRating(movieId, imageSelector) {
   const getModal = document.querySelector(".rate-modal");
   const closeModal = getModal.querySelector(".close-modal-rate");
   closeModal.addEventListener("click", () => {
@@ -167,3 +170,87 @@ async function eventRating(movieId, imageSelector) {
 }
 
 /* End Add/Delete rating Movie Code */
+
+/* Lists Movie Code */
+
+export function checkList(selector, movieId, selectorBody) {
+  const getContainer = document.querySelector(selector);
+  getContainer.addEventListener("click", function () {
+    if (getSessionId == null || getSessionId == []) {
+      window.location.href = "/login/index.html";
+    } else {
+      eventList(movieId, selectorBody);
+    }
+  });
+}
+
+function eventList(movieId, selector) {
+  const getModal = document.querySelector(".lists-modal");
+  const closeModal = getModal.querySelector(".close-modal-list");
+  closeModal.addEventListener("click", () => {
+    getModal.style.display = "none";
+  });
+  getModal.style.display = "flex";
+  displayList(selector, movieId);
+  let closeDisplayForm = true;
+  const btnCreateList = document.querySelector(".create-list");
+  btnCreateList.addEventListener("click", () => {
+    const formDisplay = document.querySelector(".form-list-create");
+    if (closeDisplayForm) {
+      formDisplay.classList.add("active");
+      closeDisplayForm = false;
+    } else {
+      formDisplay.classList.remove("active");
+      closeDisplayForm = true;
+    }
+    createListModal(selector, movieId);
+  });
+}
+
+function displayList(selectorList, movieId) {
+  const selector = document.querySelector(selectorList);
+  getAllList(getSessionId)
+    .then((list) => {
+      const getList = list.map((item) => {
+        return `
+          <div class="lists">
+            <div>
+              <p>${item.name}</p>
+              <p>${item.description}</p>
+            </div>
+            <button class="add-movie-list" data-set="${item.id}">Add</button>
+          </div>
+        `;
+      });
+      selector.innerHTML = getList.join("");
+      const addMovieButtons = document.querySelectorAll(".add-movie-list");
+      addMovieButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          const listId = this.dataset.set;
+          addMovieToList(listId, movieId, getSessionId);
+        });
+      });
+    })
+    .catch((error) => console.log(error));
+}
+
+function createListModal(selectorList, movieId) {
+  const createListBtn = document.querySelector("#createList");
+  createListBtn.removeEventListener("click", createListModalHandler);
+  function createListModalHandler(e) {
+    e.preventDefault();
+    const nameList = document.querySelector("#nameList").value;
+    const descriptionList = document.querySelector("#descriptionList").value;
+    createList(getSessionId, nameList, descriptionList)
+      .then(() => {
+        displayList(selectorList, movieId);
+        document.querySelector("#nameList").value = "";
+        document.querySelector("#descriptionList").value = "";
+      })
+      .catch((error) => console.error(error));
+  }
+  createListBtn.addEventListener("click", createListModalHandler);
+}
+
+
+/* End Lists Movie Code */

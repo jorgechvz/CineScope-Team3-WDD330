@@ -30,10 +30,7 @@ export async function getPagesMoviesByCategory(category) {
     },
   };
 
-  return await fetch(
-    `${baseURL}movie/${category}?language=en-US`,
-    options
-  )
+  return await fetch(`${baseURL}movie/${category}?language=en-US`, options)
     .then((response) => response.json())
     .then((response) => response.total_pages)
     .catch((err) => console.error(err));
@@ -376,3 +373,115 @@ export async function deleteRatingMovie(movie_id, sessionId) {
     .catch((err) => console.error(err));
 }
 
+/* Movie Lists */
+
+export async function getAllList(sessionId) {
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${baseToken}`,
+    },
+  };
+
+  return await fetch(
+    `${baseURL}account/account_id/lists?session_id=${sessionId}`,
+    options
+  )
+    .then((response) => response.json())
+    .then((response) => response.results)
+    .catch((err) => console.error(err));
+}
+
+export async function listDetail(listId) {
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${baseToken}`,
+    },
+  };
+
+  return await fetch(
+    `${baseURL}list/${listId}?session_id=${sessionId}`,
+    options
+  )
+    .then((response) => response.json())
+    .catch((err) => console.error(err));
+}
+
+export async function createList(sessionId, name, description) {
+  const options = {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "content-type": "application/json",
+      Authorization: `Bearer ${baseToken}`,
+    },
+    body: JSON.stringify({
+      name: name,
+      description: description,
+      language: "en",
+    }),
+  };
+
+  return await fetch(`${baseURL}list?session_id=${sessionId}`, options)
+    .then((response) => response.json())
+    .catch((err) => console.error(err));
+}
+
+export async function deleteList(sessionId, listId) {
+  const options = {
+    method: "DELETE",
+    headers: {
+      accept: "application/json",
+      Authorization: `Bearer ${baseToken}`,
+    },
+  };
+
+  return await fetch(
+    `${baseURL}list/${listId}?session_id=${sessionId}`,
+    options
+  )
+    .then((response) => response.json())
+    .catch((err) => console.error(err));
+}
+
+export async function addMovieToList(listId, movieId, sessionId) {
+  const options = {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "content-type": "application/json",
+      Authorization: `Bearer ${baseToken}`,
+    },
+    body: JSON.stringify({ media_id: movieId }),
+  };
+
+  return await fetch(
+    `${baseURL}list/${listId}/add_item?session_id=${sessionId}`,
+    options
+  )
+    .then((response) => response.json())
+    .catch((err) => console.error(err));
+}
+
+export async function removeMovieToList(listId, sessionId, movieId) {
+  const options = {
+    method: "POST",
+    headers: {
+      accept: "application/json",
+      "content-type": "application/json",
+      Authorization: `Bearer ${baseToken}`,
+    },
+    body: JSON.stringify({ media_id: movieId }),
+  };
+
+  return await fetch(
+    `${baseURL}list/${listId}/remove_item?session_id=${sessionId}`,
+    options
+  )
+    .then((response) => response.json())
+    .catch((err) => console.error(err));
+}
+/* End Movie Lists */

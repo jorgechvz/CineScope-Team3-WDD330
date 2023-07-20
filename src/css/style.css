@@ -41,7 +41,7 @@ header {
 }
 
 button {
-  padding: 0.5em 2em;
+  padding: 0.3em 1em;
   background-color: var(--secondary-color);
   color: white;
   border-radius: 25px;
@@ -165,7 +165,8 @@ button {
 
 /* Modal Styles  */
 .trailer-modal,
-.rate-modal {
+.rate-modal,
+.lists-modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -179,13 +180,15 @@ button {
 }
 
 .modal-header,
-.rate-modal-header {
+.rate-modal-header,
+.lists-modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.5em 1em;
 }
-.rate-modal-header {
+.rate-modal-header,
+.lists-modal-header {
   padding: 0.2em 1em;
 }
 .modal-header h3,
@@ -193,39 +196,48 @@ button {
   margin: 0.8em 0;
   color: #ffff;
 }
-.rate-modal-header h3 {
+.rate-modal-header h3,
+.lists-modal-header {
   color: #000;
 }
 
 .modal-header span {
   color: #ffffff7e;
 }
-.rate-modal-header span {
+.rate-modal-header span,
+.lists-modal-header span {
   color: #1f1f1f7e;
 }
 .close-modal,
-.close-modal-rate {
+.close-modal-rate,
+.close-modal-list {
   margin: 0;
   padding: 0 0.2em;
   font-size: 1.5em;
   cursor: pointer;
 }
-.close-modal:hover,
-.close-modal-rate:hover {
+.close-modal:hover{
   background-color: rgba(221, 219, 219, 0.171);
+  border-radius: 5px;
+}
+.close-modal-rate:hover, 
+.close-modal-list:hover {
+  background-color: rgba(44, 44, 44, 0.171);
   border-radius: 5px;
 }
 /* Modal Content */
 .modal-content,
-.rate-modal-content {
+.rate-modal-content .lists-modal-content {
   background-color: #000;
   margin: auto;
   width: 70%;
 }
-.rate-modal-content hr {
+.rate-modal-content hr,
+.lists-modal-content hr {
   margin: 0;
 }
-.rate-modal-content {
+.rate-modal-content,
+.lists-modal-content {
   background-color: #fff;
   border-radius: 20px;
   width: 25%;
@@ -240,7 +252,7 @@ button {
   font-size: 1.2em;
 }
 
-.rate-modal-body {
+.rate-modal-body .lists-modal-body {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -559,15 +571,74 @@ button {
   padding-right: 0;
 }
 /* Click + hover color */
-input:checked ~ label,
-label:hover,
-label:hover ~ label {
+.rating:checked ~ label,
+.rating:hover,
+.rating:hover ~ label {
   color: #ffee02;
 }
 
-input:checked + label:hover,
-input:checked ~ label:hover,
-input:checked ~ label:hover ~ label,
+.rating:checked + label:hover,
+.rating:checked ~ label:hover,
+.rating:checked ~ label:hover ~ label,
 label:hover ~ input:checked ~ label {
   color: #ffee02;
+}
+
+/* Create List styles */
+
+.form-list-create {
+  display: none; 
+}
+.form-list-create.active {
+  display: block; 
+}
+
+.lists {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5em;
+  border-bottom: solid #000 1px;
+  padding: .2em;
+}
+.lists div p {
+  margin: .2em ;
+}
+.lists div p:first-child{
+  font-weight: bold;
+}
+.lists div p:last-child {
+  font-size: .8em;
+}
+.lists button {
+  font-size: .9em;
+  background-color: #fff;
+  color: #000;
+}
+
+.lists button:hover {
+  background-color: rgba(44, 44, 44, 0.171);
+  border-radius: 5px;
+}
+
+.lists-modal-footer {
+  padding: .5em .5em 1em;
+}
+.camp-form-list{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: .8em;
+}
+.camp-form-list input{
+  text-indent: .3em;
+  padding: .5em 0;
+}
+#createList {
+  background-color: var(--secondary-color);
+  color: #fff;
+  padding: .3em 1em;
+  font-size: 1em;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
 }

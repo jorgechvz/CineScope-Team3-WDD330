@@ -175,24 +175,103 @@
       <div class="rate-modal">
         <div class="rate-modal-content">
           <div class="rate-modal-header">
-            <h3>Add your rating for <span class="title-movie-rate"></span></h3>
+            <h3>Add your rating</h3>
             <span class="close-modal-rate">&times;</span>
           </div>
-          <hr>
+          <hr />
           <div class="rate-modal-body">
             <div class="rate">
-              <input type="radio" id="rating10" name="rating" value="10" /><label for="rating10" title="5 stars"></label>
-              <input type="radio" id="rating9" name="rating" value="9" /><label class="half" for="rating9" title="4 1/2 stars"></label>
-              <input type="radio" id="rating8" name="rating" value="8" /><label for="rating8" title="4 stars"></label>
-              <input type="radio" id="rating7" name="rating" value="7" /><label class="half" for="rating7" title="3 1/2 stars"></label>
-              <input type="radio" id="rating6" name="rating" value="6" /><label for="rating6" title="3 stars"></label>
-              <input type="radio" id="rating5" name="rating" value="5" /><label class="half" for="rating5" title="2 1/2 stars"></label>
-              <input type="radio" id="rating4" name="rating" value="4" /><label for="rating4" title="2 stars"></label>
-              <input type="radio" id="rating3" name="rating" value="3" /><label class="half" for="rating3" title="1 1/2 stars"></label>
-              <input type="radio" id="rating2" name="rating" value="2" /><label for="rating2" title="1 star"></label>
-              <input type="radio" id="rating1" name="rating" value="1" /><label class="half" for="rating1" title="1/2 star"></label>
-              <input type="radio" id="rating0" name="rating" value="0" /><label for="rating0" title="No star"></label>
+              <input
+                type="radio"
+                class="rating"
+                id="rating10"
+                name="rating"
+                value="10"
+              /><label for="rating10" title="5 stars"></label>
+              <input type="radio" id="rating9" name="rating" value="9" /><label
+                class="half"
+                class="rating"
+                for="rating9"
+                title="4 1/2 stars"
+              ></label>
+              <input
+                type="radio"
+                id="rating8"
+                class="rating"
+                name="rating"
+                value="8"
+              /><label for="rating8" title="4 stars"></label>
+              <input type="radio" id="rating7" class="rating" name="rating" value="7" /><label
+                class="half"
+                for="rating7"
+                title="3 1/2 stars"
+              ></label>
+              <input type="radio" id="rating6" class="rating" name="rating" value="6" /><label
+                for="rating6"
+                title="3 stars"
+              ></label>
+              <input type="radio" id="rating5" class="rating" name="rating" value="5" /><label
+                class="half"
+                for="rating5"
+                title="2 1/2 stars"
+              ></label>
+              <input type="radio" id="rating4" class="rating" name="rating" value="4" /><label
+                for="rating4"
+                title="2 stars"
+              ></label>
+              <input type="radio" id="rating3" class="rating" name="rating" value="3" /><label
+                class="half"
+                for="rating3"
+                title="1 1/2 stars"
+              ></label>
+              <input type="radio" id="rating2" class="rating" name="rating" value="2" /><label
+                for="rating2"
+                title="1 star"
+              ></label>
+              <input type="radio" id="rating1" class="rating" name="rating" value="1" /><label
+                class="half"
+                for="rating1"
+                title="1/2 star"
+              ></label>
+              <input type="radio" id="rating0" class="rating" name="rating" value="0" /><label
+                for="rating0"
+                title="No star"
+              ></label>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="lists-modal">
+        <div class="lists-modal-content">
+          <div class="lists-modal-header">
+            <h3>Your Lists</h3>
+            <span class="close-modal-list">&times;</span>
+          </div>
+          <hr />
+          <div class="lists-modal-body"></div>
+          <div class="lists-modal-footer">
+            <button class="create-list"><span>+</span> Create New List</button>
+            <form class="form-list-create" method="post">
+              <p class="message_failure"></p>
+              <div class="camp-form-list">
+                <label for="nameList">Name</label>
+                <input type="text" id="nameList" name="nameList" />
+              </div>
+              <div class="camp-form-list">
+                <label for="descriptionList">Description</label>
+                <input
+                  type="text"
+                  name="descriptionList"
+                  id="descriptionList"
+                />
+              </div>
+              <input
+                type="submit"
+                name="createList"
+                id="createList"
+                value="Create"
+              />
+            </form>
           </div>
         </div>
       </div>
@@ -200,9 +279,11 @@
         <div class="movie-cast-container">
           <h3 class="div-title">Main Cast</h3>
           <ol class="movie-cast">
-            <div class="see-more-cast"><a href="">See more </a><span class="arrow">&#8594;</span></div>
+            <div class="see-more-cast">
+              <a href="">See more </a><span class="arrow">&#8594;</span>
+            </div>
           </ol>
-          <hr>
+          <hr />
         </div>
         <div class="recommendation-movies-container">
           <h3 class="div-title">Recommendations</h3>
@@ -210,7 +291,6 @@
         </div>
         <div class="information-movie"></div>
       </section>
-      
     </main>
     <footer>&copy;NOT a real business</footer>
   </body>

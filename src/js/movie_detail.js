@@ -15,10 +15,3 @@ movieCredits(movieId, selectorMainCast)
 
 movieRecommendations(movieId, selectorRecommendation)
 
-/* setTimeout(() => {
-    document.querySelector(".add-favorite").addEventListener("click", (e) => {
-        const getFavorite = e.target;
-        const getMovieId = getFavorite.dataset.id;
-        favoriteMovie(getMovieId);
-    })
-}, 100) */
